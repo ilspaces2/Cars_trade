@@ -12,6 +12,9 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String carName;
+    private String modelCar;
+    private String bodyCar;
+    private byte[] photoCar;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "engineId")
     private Engine engine;
@@ -59,6 +62,30 @@ public class Car {
 
     public void addDriver(Driver driver) {
         drivers.add(driver);
+    }
+
+    public String getModelCar() {
+        return modelCar;
+    }
+
+    public void setModelCar(String modelCar) {
+        this.modelCar = modelCar;
+    }
+
+    public String getBodyCar() {
+        return bodyCar;
+    }
+
+    public void setBodyCar(String bodyCar) {
+        this.bodyCar = bodyCar;
+    }
+
+    public byte[] getPhotoCar() {
+        return photoCar;
+    }
+
+    public void setPhotoCar(byte[] photoCar) {
+        this.photoCar = photoCar;
     }
 
     @Override

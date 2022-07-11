@@ -8,6 +8,9 @@ create table car
 (
     id SERIAL PRIMARY KEY,
     carName VARCHAR NOT NULL,
+    modelCar    VARCHAR   NOT NULL,
+    bodyCar     VARCHAR   NOT NULL,
+    photoCar    bytea,
     engineId INT NOT NULL REFERENCES engine (id)
 );
 

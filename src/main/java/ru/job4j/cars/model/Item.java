@@ -11,9 +11,6 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String description;
-    private String modelCar;
-    private String bodyCar;
-    private byte[] photoCar;
     private boolean sale;
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
@@ -41,14 +38,6 @@ public class Item {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getModelCar() {
-        return modelCar;
-    }
-
-    public void setModelCar(String modelCar) {
-        this.modelCar = modelCar;
     }
 
     public Date getCreated() {
@@ -81,22 +70,6 @@ public class Item {
 
     public void setCar(Car car) {
         this.car = car;
-    }
-
-    public String getBodyCar() {
-        return bodyCar;
-    }
-
-    public void setBodyCar(String bodyCar) {
-        this.bodyCar = bodyCar;
-    }
-
-    public byte[] getPhotoCar() {
-        return photoCar;
-    }
-
-    public void setPhotoCar(byte[] photoCar) {
-        this.photoCar = photoCar;
     }
 
     @Override
