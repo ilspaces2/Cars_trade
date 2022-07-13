@@ -10,7 +10,7 @@ create table items
     id          SERIAL PRIMARY KEY,
     description VARCHAR   NOT NULL,
     sale        boolean   NOT NULL,
-    created     TIMESTAMP NOT NULL,
+    created     DATE NOT NULL,
     userId      INT       NOT NULL REFERENCES users (id),
     carId       INT       NOT NULL REFERENCES car (id)
 );

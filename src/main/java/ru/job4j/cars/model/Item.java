@@ -12,7 +12,7 @@ public class Item {
     private int id;
     private String description;
     private boolean sale;
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date created;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
