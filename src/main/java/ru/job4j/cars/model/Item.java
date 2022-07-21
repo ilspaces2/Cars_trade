@@ -14,6 +14,9 @@ public class Item {
     private boolean sale;
     @Temporal(TemporalType.DATE)
     private Date created;
+
+    @Temporal(TemporalType.DATE)
+    private Date closed;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private User user;
@@ -70,6 +73,14 @@ public class Item {
 
     public void setCar(Car car) {
         this.car = car;
+    }
+
+    public Date getClosed() {
+        return closed;
+    }
+
+    public void setClosed(Date closed) {
+        this.closed = closed;
     }
 
     @Override

@@ -1,9 +1,7 @@
 package ru.job4j.cars.model;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "car")
@@ -11,10 +9,13 @@ public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String carName;
-    private String modelCar;
-    private String bodyCar;
     private byte[] photoCar;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "nameId")
+    private NameCar nameCar;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "bodyId")
+    private BodyCar bodyCar;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "engineId")
     private Engine engine;
@@ -23,7 +24,7 @@ public class Car {
             @JoinColumn(name = "driverId", nullable = false, updatable = false)},
             inverseJoinColumns = {
                     @JoinColumn(name = "carId", nullable = false, updatable = false)})
-    private Set<Driver> drivers = new HashSet<>();
+    private List<Driver> drivers = new ArrayList<>();
 
     public Car() {
     }
@@ -36,14 +37,6 @@ public class Car {
         this.id = id;
     }
 
-    public String getCarName() {
-        return carName;
-    }
-
-    public void setCarName(String carName) {
-        this.carName = carName;
-    }
-
     public Engine getEngine() {
         return engine;
     }
@@ -52,11 +45,11 @@ public class Car {
         this.engine = engine;
     }
 
-    public Set<Driver> getDrivers() {
+    public List<Driver> getDrivers() {
         return drivers;
     }
 
-    public void setDrivers(Set<Driver> drivers) {
+    public void setDrivers(List<Driver> drivers) {
         this.drivers = drivers;
     }
 
@@ -64,19 +57,11 @@ public class Car {
         drivers.add(driver);
     }
 
-    public String getModelCar() {
-        return modelCar;
-    }
-
-    public void setModelCar(String modelCar) {
-        this.modelCar = modelCar;
-    }
-
-    public String getBodyCar() {
+    public BodyCar getBodyCar() {
         return bodyCar;
     }
 
-    public void setBodyCar(String bodyCar) {
+    public void setBodyCar(BodyCar bodyCar) {
         this.bodyCar = bodyCar;
     }
 
@@ -86,6 +71,14 @@ public class Car {
 
     public void setPhotoCar(byte[] photoCar) {
         this.photoCar = photoCar;
+    }
+
+    public NameCar getNameCar() {
+        return nameCar;
+    }
+
+    public void setNameCar(NameCar nameCar) {
+        this.nameCar = nameCar;
     }
 
     @Override

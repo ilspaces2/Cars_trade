@@ -4,18 +4,15 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "driver")
-public class Driver {
+@Table(name = "brandCar")
+public class BrandCar {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String driverName;
 
-    public Driver() {
-    }
+    private String brandName;
 
-    public Driver(String name) {
-        this.driverName = name;
+    public BrandCar() {
     }
 
     public int getId() {
@@ -26,12 +23,12 @@ public class Driver {
         this.id = id;
     }
 
-    public String getDriverName() {
-        return driverName;
+    public String getBrandName() {
+        return brandName;
     }
 
-    public void setDriverName(String driverName) {
-        this.driverName = driverName;
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
     }
 
     @Override
@@ -42,8 +39,8 @@ public class Driver {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Driver driver = (Driver) o;
-        return id == driver.id;
+        BrandCar brandCar = (BrandCar) o;
+        return id == brandCar.id;
     }
 
     @Override

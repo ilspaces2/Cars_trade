@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -16,11 +16,15 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
     <title>Cars</title>
 </head>
 <body>
-<div class="container">
+<div class="container pt-3">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Cars</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
@@ -34,7 +38,7 @@
                 <a class="nav-item nav-link" th:href="@{/withPhoto}">С фото</a>
                 <a class="nav-item nav-link" th:href="@{/myItems}">Мои объявления</a>
                 <a class="nav-item nav-link" th:href="@{/archiveItems}">Архив</a>
-                <a class="nav-item nav-link" th:href="@{/addItem}">Добавить объявление</a>
+                <a class="nav-item nav-link active" th:href="@{/addItem}">Добавить объявление</a>
                 <form th:action="@{/byCarName}">
                     <div class="form-group">
                         <label>
@@ -55,24 +59,52 @@
             </div>
         </div>
     </nav>
-    <div class="card" style="width: 100%; margin-top: 20px" th:each="item: ${items}">
-        <div class="card-header">
-            <small class="text-muted" th:text="${'Добавлено: '+ item.created+'    '}"></small>
-            <small class="text-muted" th:text="${'Пользователь: '+ item.user.userName +'    '}"></small>
-            <small class="text-muted" th:text="${'Объявление id: ' + item.id}"></small>
+    <div class="row">
+        <div class="card" style="width: 100%">
+            <form th:action="@{/formAddItem}" method="POST" enctype="multipart/form-data">
+                <div class="card-header">
+                    <div class="form-group">
+                        <label>Выберите автомобиль
+                            <select name="nameCar.id" id="nameCar.id">
+                                <optgroup th:each="brand : ${brandCar}" th:label="${brand.brandName}">
+                                    <option th:each="name : ${nameCar}" th:if="${brand.id==name.brandName?.id}"
+                                            th:text="${name.modelName}"
+                                            th:value="${name.id}"></option>
+                                </optgroup>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>Выберите кузов
+                            <select name="bodyCar.id" id="bodyCar.id">
+                                <option th:each="body: ${bodyCar}" th:text="${body.bodyName}"
+                                        th:value="${body.id}"></option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>Выберите двигатель
+                            <select name="engine.id" id="engine.id">
+                                <option th:each="engine: ${engineCar}" th:text="${engine.engineName}"
+                                        th:value="${engine.id}"></option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <input type="hidden" name="user.id" th:value="${user.id}">
+                    <input type="hidden" name="sale" value="false">
+                    <div class="form-group">
+                        <label>Описание</label>
+                        <textarea class="form-control" rows="5" name="description" required></textarea>
+                    </div>
+                    <label>Фотография
+                        <input type="file" class="form-control" name="file" id="file" accept=".jpg,.jpeg,.png">
+                    </label>
+                    <button type="submit" class="btn btn-primary">Добавить</button>
+                </div>
+            </form>
         </div>
-        <a class="mx-auto" style="margin-top: 20px" th:href="@{|/toItem/${item.id}|}">
-            <img th:width="200" th:high="200" th:if="${item.car.photoCar!=null}"
-                 th:src="@{|/getPhoto/${item.car.id}|}" alt="Car photo">
-        </a>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item" th:text="${'Марка: '+ item.car.nameCar.brandName.brandName +
-                                                   '; Модель: '+ item.car.nameCar.modelName +
-                                                   '; Кузов: '+ item.car.bodyCar.bodyName +
-                                                   '; Двигатель: '+ item.car.engine.engineName  }"></li>
-            <li class="list-group-item" th:text="${'Описание: '+ item.description}"></li>
-            <li class="list-group-item" th:text="${'Статус: В продаже'}"></li>
-        </ul>
     </div>
 </div>
 </body>

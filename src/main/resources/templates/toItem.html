@@ -17,6 +17,14 @@
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        /*.scale {*/
+        /*    transition: 1s; !* Время эффекта *!*/
+        /*}*/
+        /*.scale:hover {*/
+        /*    transform: scale(3.2); !* Увеличиваем масштаб *!*/
+        /*}*/
+    </style>
     <title>Cars</title>
 </head>
 <body>
@@ -30,7 +38,7 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-item nav-link" th:href="@{/index}">Все</a>
-                <a class="nav-item nav-link active" th:href="@{/addToday}">Новые</a>
+                <a class="nav-item nav-link" th:href="@{/addToday}">Новые</a>
                 <a class="nav-item nav-link" th:href="@{/withPhoto}">С фото</a>
                 <a class="nav-item nav-link" th:href="@{/myItems}">Мои объявления</a>
                 <a class="nav-item nav-link" th:href="@{/archiveItems}">Архив</a>
@@ -55,23 +63,21 @@
             </div>
         </div>
     </nav>
-    <div class="card" style="width: 100%; margin-top: 20px" th:each="item: ${items}">
+    <div class="card" style="width: 100%; margin-top: 20px">
         <div class="card-header">
             <small class="text-muted" th:text="${'Добавлено: '+ item.created+'    '}"></small>
             <small class="text-muted" th:text="${'Пользователь: '+ item.user.userName +'    '}"></small>
             <small class="text-muted" th:text="${'Объявление id: ' + item.id}"></small>
         </div>
-        <a class="mx-auto" style="margin-top: 20px" th:href="@{|/toItem/${item.id}|}">
-            <img th:width="200" th:high="200" th:if="${item.car.photoCar!=null}"
-                 th:src="@{|/getPhoto/${item.car.id}|}" alt="Car photo">
-        </a>
+        <img th:if="${item.car.photoCar!=null}" th:src="@{|/getPhoto/${item.car.id}|}" alt="Car photo">
         <ul class="list-group list-group-flush">
             <li class="list-group-item" th:text="${'Марка: '+ item.car.nameCar.brandName.brandName +
                                                    '; Модель: '+ item.car.nameCar.modelName +
                                                    '; Кузов: '+ item.car.bodyCar.bodyName +
                                                    '; Двигатель: '+ item.car.engine.engineName  }"></li>
             <li class="list-group-item" th:text="${'Описание: '+ item.description}"></li>
-            <li class="list-group-item" th:text="${'Статус: В продаже'}"></li>
+            <li class="list-group-item" th:if="${item.sale}" th:text="${'Статус: Продано '+ item.closed}"></li>
+            <li class="list-group-item" th:if="${!item.sale}" th:text="${'Статус: В продаже'}"></li>
         </ul>
     </div>
 </div>

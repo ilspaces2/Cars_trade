@@ -1,12 +1,21 @@
-insert into users (username, email, pass) values ('User','email','pass');
-insert into driver (drivername) values ('first driver');
-insert into engine (enginename) values ('benzine');
-insert into car (carname, modelcar, bodycar, photocar, engineid) values ('Ferrari','Enzo','sedan',null,1);
-insert into car (carname, modelcar, bodycar, photocar, engineid) values ('VAZ','2104','wagon','0101',1);
-insert into car (carname, modelcar, bodycar, photocar, engineid) values ('BMW','3','sedan','010101',1);
-insert into history_owner (driverid, carid) values (1,1);
-insert into history_owner (driverid, carid) values (1,2);
-insert into history_owner (driverid, carid) values (1,3);
-insert into items (description, sale, created, userid, carid) values ('Cell race car',false, current_date ,1,1);
-insert into items (description, sale, created, userid, carid) values ('Cell old car',false, current_date ,1,2);
-insert into items (description, sale, created, userid, carid) values ('Cell new car',false, current_date ,1,3);
+insert into engine (engineName) values ('benzine');
+insert into engine (engineName) values ('diesel');
+insert into engine (engineName) values ('hybrid');
+
+insert into bodyCar (bodyName) values ('sedan');
+insert into bodyCar (bodyName) values ('wagon');
+insert into bodyCar (bodyName) values ('hatchback');
+
+insert into brandCar (brandName) values ('Opel');
+insert into brandCar (brandName) values ('BMW');
+insert into brandCar (brandName) values ('VAZ');
+insert into brandCar (brandName) values ('Porsche');
+
+insert into nameCar (modelName, brandId) values ('Astra',1);
+insert into nameCar (modelName, brandId) values ('Zafira',1);
+insert into nameCar (modelName, brandId) values ('750',2);
+insert into nameCar (modelName, brandId) values ('X5',2);
+insert into nameCar (modelName, brandId) values ('2108',3);
+insert into nameCar (modelName, brandId) values ('Priora',3);
+insert into nameCar (modelName, brandId) values ('911',4);
+insert into nameCar (modelName, brandId) values ('Cayman',4);

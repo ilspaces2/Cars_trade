@@ -4,18 +4,20 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "driver")
-public class Driver {
+@Table(name = "nameCar")
+public class NameCar {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String driverName;
 
-    public Driver() {
-    }
+    private String modelName;
 
-    public Driver(String name) {
-        this.driverName = name;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "brandId")
+    private BrandCar brandName;
+
+    public NameCar() {
     }
 
     public int getId() {
@@ -26,12 +28,20 @@ public class Driver {
         this.id = id;
     }
 
-    public String getDriverName() {
-        return driverName;
+    public String getModelName() {
+        return modelName;
     }
 
-    public void setDriverName(String driverName) {
-        this.driverName = driverName;
+    public void setModelName(String modelName) {
+        this.modelName = modelName;
+    }
+
+    public BrandCar getBrandName() {
+        return brandName;
+    }
+
+    public void setBrandName(BrandCar brandName) {
+        this.brandName = brandName;
     }
 
     @Override
@@ -42,8 +52,8 @@ public class Driver {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Driver driver = (Driver) o;
-        return id == driver.id;
+        NameCar nameCar = (NameCar) o;
+        return id == nameCar.id;
     }
 
     @Override

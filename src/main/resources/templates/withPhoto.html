@@ -32,6 +32,9 @@
                 <a class="nav-item nav-link" th:href="@{/index}">Все</a>
                 <a class="nav-item nav-link" th:href="@{/addToday}">Новые</a>
                 <a class="nav-item nav-link active" th:href="@{/withPhoto}">С фото</a>
+                <a class="nav-item nav-link" th:href="@{/myItems}">Мои объявления</a>
+                <a class="nav-item nav-link" th:href="@{/archiveItems}">Архив</a>
+                <a class="nav-item nav-link" th:href="@{/addItem}">Добавить объявление</a>
                 <form th:action="@{/byCarName}">
                     <div class="form-group">
                         <label>
@@ -41,31 +44,35 @@
                         <button type="submit" class="btn btn-primary">Найти</button>
                     </div>
                 </form>
+                <a class="nav-item nav-link" th:if="${user.userName=='Гость'}" th:href="@{/loginPage}">
+                    <span th:text="${user.userName}">| Войти</span>
+                    <span> | Войти</span>
+                </a>
+                <a class="nav-item nav-link" th:if="${user.userName!='Гость'}" th:href="@{/logout}">
+                    <span th:text="${user.userName}"></span>
+                    <span> | Выйти</span>
+                </a>
             </div>
         </div>
     </nav>
-    <div class="row">
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">Марка</th>
-                <th scope="col">Описание</th>
-                <th scope="col">Пользователь</th>
-                <th scope="col">Дата добавления</th>
-                <th scope="col">Продана</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="item: ${items}">
-                <td th:text="${item.car?.carName}"></td>
-                <td th:text="${item.description}"></td>
-                <td th:text="${item.user?.userName}"></td>
-                <td th:text="${item.created}"></td>
-                <td th:if="${item.sale}" th:text="${'Продано'}"></td>
-                <td th:if="${!item.sale}" th:text="${'В продаже'}"></td>
-            </tr>
-            </tbody>
-        </table>
+    <div class="card" style="width: 100%; margin-top: 20px" th:each="item: ${items}">
+        <div class="card-header">
+            <small class="text-muted" th:text="${'Добавлено: '+ item.created+'    '}"></small>
+            <small class="text-muted" th:text="${'Пользователь: '+ item.user.userName +'    '}"></small>
+            <small class="text-muted" th:text="${'Объявление id: ' + item.id}"></small>
+        </div>
+        <a class="mx-auto" style="margin-top: 20px" th:href="@{|/toItem/${item.id}|}">
+            <img th:width="200" th:high="200" th:if="${item.car.photoCar!=null}"
+                 th:src="@{|/getPhoto/${item.car.id}|}" alt="Car photo">
+        </a>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" th:text="${'Марка: '+ item.car.nameCar.brandName.brandName +
+                                                   '; Модель: '+ item.car.nameCar.modelName +
+                                                   '; Кузов: '+ item.car.bodyCar.bodyName +
+                                                   '; Двигатель: '+ item.car.engine.engineName  }"></li>
+            <li class="list-group-item" th:text="${'Описание: '+ item.description}"></li>
+            <li class="list-group-item" th:text="${'Статус: В продаже'}"></li>
+        </ul>
     </div>
 </div>
 </body>

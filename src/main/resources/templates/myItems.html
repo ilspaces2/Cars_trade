@@ -30,9 +30,9 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-item nav-link" th:href="@{/index}">Все</a>
-                <a class="nav-item nav-link active" th:href="@{/addToday}">Новые</a>
+                <a class="nav-item nav-link" th:href="@{/addToday}">Новые</a>
                 <a class="nav-item nav-link" th:href="@{/withPhoto}">С фото</a>
-                <a class="nav-item nav-link" th:href="@{/myItems}">Мои объявления</a>
+                <a class="nav-item nav-link active" th:href="@{/myItems}">Мои объявления</a>
                 <a class="nav-item nav-link" th:href="@{/archiveItems}">Архив</a>
                 <a class="nav-item nav-link" th:href="@{/addItem}">Добавить объявление</a>
                 <form th:action="@{/byCarName}">
@@ -71,8 +71,13 @@
                                                    '; Кузов: '+ item.car.bodyCar.bodyName +
                                                    '; Двигатель: '+ item.car.engine.engineName  }"></li>
             <li class="list-group-item" th:text="${'Описание: '+ item.description}"></li>
-            <li class="list-group-item" th:text="${'Статус: В продаже'}"></li>
+            <li class="list-group-item" th:if="${item.sale}" th:text="${'Статус: Продано '+ item.closed}"></li>
         </ul>
+        <div class="card-footer" th:if="${!item.sale}">
+            <p th:text="${'Статус: В продаже'}"></p>
+            <a th:href="@{|/sell/${item.id}|}">Продано</a>
+            <a th:href="@{|/updateItem/${item.id}|}">Редактировать</a>
+        </div>
     </div>
 </div>
 </body>
